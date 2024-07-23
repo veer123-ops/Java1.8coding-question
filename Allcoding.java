@@ -157,8 +157,208 @@ System.out.print("-------");
         System.out.println("The third highest number is: " + thirdHighest);
     
 
-  
+  //Given a list of integers, find the total number of elements present in the list using Stream functions?
+		List<Integer> myList = Arrays.asList(10,15,8,49,25,98,98,32,15);
+          long count =  myList.stream()
+                              .count();
+          System.out.println(count);    
+
+
+		//Given a String, find the first non-repeated character in it using Stream functions?
+
+		 String input = "Java articles are Awesome";
+    
+    Character result = input.chars() // Stream of String       
+            .mapToObj(s -> Character.toLowerCase(Character.valueOf((char) s))) // First convert to Character object and then to lowercase         
+            .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())) //Store the chars in map with count 
+            .entrySet()
+            .stream()
+            .filter(entry -> entry.getValue() == 1L)
+            .map(entry -> entry.getKey())
+            .findFirst()
+            .get();
+    System.out.println(result); 
+
+		//Given a String, find the first repeated character in it using Stream functions?
+
+		String input = "Java Articles are Awesome";
+
+                    Character result = input.chars() // Stream of String       
+                                  .mapToObj(s -> Character.toLowerCase(Character.valueOf((char) s))) // First convert to Character object and then to lowercase         
+                                  .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())) //Store the chars in map with count 
+                                  .entrySet()
+                                  .stream()
+                                  .filter(entry -> entry.getValue() > 1L)
+                                  .map(entry -> entry.getKey())
+                                  .findFirst()
+                                  .get();
+          System.out.println(result);   
+
+
+		//Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+public boolean containsDuplicate(int[] nums) {
+    List<Integer> list = Arrays.stream(nums)
+                               .boxed()
+                               .collect(Collectors.toList());
+    Set<Integer> set = new HashSet<>(list);
+     if(set.size() == list.size()) {
+       return false;
+   } 
+      return true;
+  }
+
+
+		//Write a Java 8 program to concatenate two Streams
+List<String> list1 = Arrays.asList("Java", "8");
+        List<String> list2 = Arrays.asList("explained", "through", "programs");
+ 
+        Stream<String> concatStream = Stream.concat(list1.stream(), list2.stream());
+         
+        // Concatenated the list1 and list2 by converting them into Stream
+ 
+        concatStream.forEach(str -&gt; System.out.print(str + " "));
+         
+        // Printed the Concatenated Stream
+         
+		
+		// Java 8 program to perform cube on list elements and filter numbers greater than 50.
+
+
+       List<Integer> integerList = Arrays.asList(4,5,6,7,1,2,3);
+       integerList.stream()
+                  .map(i -> i*i*i)
+                  .filter(i -> i>50)
+                  .forEach(System.out::println);
+//How to use map to convert object into Uppercase in Java 8?
+
+		ist<String> nameLst = names.stream()
+                                    .map(String::toUpperCase)
+                                    .collect(Collectors.toList());
+        System.out.println(nameLst);
+
+//How to convert a List of objects into a Map by considering duplicated keys and store them in sorted order?
+    List<Notes> noteLst = new ArrayList<>();
+    noteLst.add(new Notes(1, "note1", 11));
+    noteLst.add(new Notes(2, "note2", 22));
+    noteLst.add(new Notes(3, "note3", 33));
+    noteLst.add(new Notes(4, "note4", 44));
+    noteLst.add(new Notes(5, "note5", 55));
+
+    noteLst.add(new Notes(6, "note4", 66));
+
+
+    Map<String, Long> notesRecords = noteLst.stream()
+                                            .sorted(Comparator
+                                            .comparingLong(Notes::getTagId)
+                                            .reversed()) // sorting is based on TagId 55,44,33,22,11
+                                            .collect(Collectors.toMap
+                                            (Notes::getTagName, Notes::getTagId,
+                                            (oldValue, newValue) -> oldValue,LinkedHashMap::new));
+// consider old value 44 for dupilcate key
+// it keeps order
+        System.out.println("Notes : " + notesRecords);
+
+//How to count each element/word from the String ArrayList in Java8?
+
+		
+		ist<String> names = Arrays.asList("AA", "BB", "AA", "CC");
+        Map<String,Long> namesCount = names
+                                .stream()
+                                .collect(
+                                 Collectors.groupingBy(
+                                   Function.identity()
+                                 , Collectors.counting()
+                                 ));
+        System.out.println(namesCount);
+
+//How to find only duplicate elements with its count from the String ArrayList in Java8?
+
+		List<String> names = Arrays.asList("AA", "BB", "AA", "CC");
+      Map<String,Long> namesCount = names
+                                   .stream()
+                       .filter(x->Collections.frequency(names, x)>1)
+                       .collect(Collectors.groupingBy
+                       (Function.identity(), Collectors.counting()));
+      System.out.println(namesCount);
+  //How to check if list is empty in Java 8 using Optional, if not null iterate through the list and print the obj
+		Optional.ofNullable(noteLst)
+            .orElseGet(Collections::emptyList) // creates empty immutable list: [] in case noteLst is null
+            .stream().filter(Objects::nonNull) //loop throgh each object and consider non null objects
+            .map(note -> Notes::getTagName) // method reference, consider only tag name
+            .forEach(System.out::println); // it will print tag names
+		
 	}}
 
+//public class StringFrequencyCounter {
+    public static void main(String[] args) {
+        String text = "verer is good boy and boy";
 
+        List<String> words = Arrays.asList(text.split("\\s+"));
+
+        Map<String, Long> frequencyMap = words.stream()
+            .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+
+        System.out.println(frequencyMap);
+
+
+	    //
+
+	    public class StringFrequencyCounter {
+    public static void main(String[] args) {
+        String text = "veer is name good good duplicate only count";
+
+        List<String> words = Arrays.asList(text.split("\\s+"));
+
+        Map<String, Long> frequencyMap = words.stream()
+            .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+
+        // Filter the map to include only entries with count > 1
+        Map<String, Long> filteredMap = frequencyMap.entrySet().stream()
+            .filter(entry -> entry.getValue() > 1)
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        System.out.println(filteredMap);
+
+
+
+
+	    public class NumberFrequencyCounter {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 2, 3, 3, 3, 4, 4, 4, 4);
+
+        Map<Integer, Long> frequencyMap = numbers.stream()
+            .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+
+        System.out.println(frequencyMap);
+
+
+
+	    public class StreamExample {
+    public static void main(String[] args) {
+        String str = "hello world";
+
+        // Count the frequency of each character using Stream API
+        Map<Character, Long> frequencyMap = str.chars()
+                                               .mapToObj(c -> (char) c)
+                                               .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        // Print the frequency map
+        frequencyMap.forEach((character, frequency) -> System.out.println(character + ": " + frequency));
+    }
+
+
+		    public class StreamExample {
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("apple", "banana", "apple", "orange", "banana", "apple");
+
+        // Count the frequency of each word using Stream API
+        Map<String, Long> frequencyMap = words.stream()
+                                             .collect(Collectors.groupingBy(w -> w, Collectors.counting()));
+
+        // Print the frequency map
+        frequencyMap.forEach((word, frequency) -> System.out.println(word + ": " + frequency));
+    }
+}
+    }
+}
 
