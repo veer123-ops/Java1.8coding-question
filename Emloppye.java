@@ -552,7 +552,7 @@ public class Emloppye {
 
                             top3Salaries.forEach(System.out::println);
                             
-                            /*
+                            
                              
                              
                              // Print average salary and total salary of the organization
@@ -672,7 +672,6 @@ public class Emloppye {
                 .limit(3)
                 .collect(Collectors.toList());
         System.out.println("Top 3 Salaries in Organization: " + top3Salaries);
-    }
-                             */
-		        }     }
-		}}
+    
+                             
+		        
