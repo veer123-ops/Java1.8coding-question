@@ -357,6 +357,25 @@ public class StringFrequencyCounter {
 
         // Print the frequency map
         frequencyMap.forEach((word, frequency) -> System.out.println(word + ": " + frequency));
+
+
+
+public class RemoveDuplicates {
+    public static String removeDuplicateChars(String input) {
+        Set<Character> seen = new LinkedHashSet<>();
+        
+        // Convert the string to a stream of characters
+        return input.chars()
+                    .mapToObj(c -> (char) c)
+                    .filter(seen::add)  // Filter out duplicates
+                    .map(String::valueOf)  // Convert characters back to strings
+                    .collect(Collectors.joining());  // Join them back into a single string
+    }
+
+    public static void main(String[] args) {
+        String input = "abracadabra";
+        String result = removeDuplicateChars(input);
+        
     }
 }
     }
