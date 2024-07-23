@@ -289,8 +289,8 @@ List<String> list1 = Arrays.asList("Java", "8");
 		
 	}}
 
-//public class StringFrequencyCounter {
-    public static void main(String[] args) {
+public class StringFrequencyCounter {
+   // public static void main(String[] args) {
         String text = "verer is good boy and boy";
 
         List<String> words = Arrays.asList(text.split("\\s+"));
@@ -304,7 +304,7 @@ List<String> list1 = Arrays.asList("Java", "8");
 	    //
 
 	    public class StringFrequencyCounter {
-    public static void main(String[] args) {
+   // public static void main(String[] args) {
         String text = "veer is name good good duplicate only count";
 
         List<String> words = Arrays.asList(text.split("\\s+"));
@@ -323,7 +323,7 @@ List<String> list1 = Arrays.asList("Java", "8");
 
 
 	    public class NumberFrequencyCounter {
-    public static void main(String[] args) {
+   // public static void main(String[] args) {
         List<Integer> numbers = Arrays.asList(1, 2, 2, 3, 3, 3, 4, 4, 4, 4);
 
         Map<Integer, Long> frequencyMap = numbers.stream()
@@ -334,7 +334,7 @@ List<String> list1 = Arrays.asList("Java", "8");
 
 
 	    public class StreamExample {
-    public static void main(String[] args) {
+   // public static void main(String[] args) {
         String str = "hello world";
 
         // Count the frequency of each character using Stream API
@@ -348,7 +348,7 @@ List<String> list1 = Arrays.asList("Java", "8");
 
 
 		    public class StreamExample {
-    public static void main(String[] args) {
+   // public static void main(String[] args) {
         List<String> words = Arrays.asList("apple", "banana", "apple", "orange", "banana", "apple");
 
         // Count the frequency of each word using Stream API
